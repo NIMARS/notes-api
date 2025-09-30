@@ -1,5 +1,6 @@
 import { buildApp } from './app.js';
 import { env } from './bootstrap/env.js';
+import { closePrisma } from './db/prisma.js';
 
 const start = async () => {
   const app = await buildApp();
@@ -8,10 +9,11 @@ const start = async () => {
     try {
       app.log.info({ signal }, 'Shutting down...');
       await app.close();
+      await closePrisma();
       // Some time for logs to flush :3
       setTimeout(() => process.exit(0), 100).unref();
     } catch (e) {
-      // eslint-disable-next-line no-console
+
       console.error('Graceful shutdown failed', e);
       process.exit(1);
     }

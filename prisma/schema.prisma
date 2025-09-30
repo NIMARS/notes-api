@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Note {
+  id      String @id @default(uuid()) @db.Uuid
+  title   String
+  content String
+  tags    Json   @db.JsonB
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // composed uniq key for cursor (createdAt DESC, id DESC)
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "idx_notes_createdAt_id_desc")
+  // GIN find/filter by tags ( &&, @>)
+  @@index([tags], type: Gin, map: "idx_note_tags_gin")
+}

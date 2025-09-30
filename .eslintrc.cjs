@@ -1,9 +1,9 @@
 /** @type {import('eslint').Linter.Config} */
-module.exports = {
+export default {
   root: true,
   env: { node: true, es2022: true, jest: true },
   parser: "@typescript-eslint/parser",
-  parserOptions: { project: false, sourceType: "module", ecmaVersion: "latest" },
+  parserOptions: { project: false, sourceType: "module", ecmaVersion: "latest", },
   plugins: ["@typescript-eslint"],
   extends: [
     "eslint:recommended",
