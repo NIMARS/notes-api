@@ -17,7 +17,7 @@ Fastify + TypeScript + Prisma сервис для заметок с фильтр
 * **Курсорная пагинация** по `(createdAt DESC, id DESC)`
 * **Валидация Zod** с автогенерацией **JSON Schema** для Swagger
 * **Централизованный error-handler** в едином формате `{ error, message, reqId?, details? }`
-* **Логирование Pino** (красиво в dev, структурировано в prod)
+* **Логирование Pino**
 * **Swagger UI** на `/docs`
 * **Docker Compose**: `api` + `postgres`
 * **Jest + Supertest**: 20+ e2e-тестов
@@ -284,7 +284,7 @@ Fastify + TypeScript + Prisma service for notes with tag filters, cursor paginat
 * **Cursor pagination** by `(createdAt DESC, id DESC)`
 * **Zod validation** with auto-generated **JSON Schema** for Swagger
 * **Centralized error handler** with a unified `{ error, message, reqId?, details? }` shape
-* **Pino logging** (pretty in dev, structured in prod)
+* **Pino logging**
 * **Swagger UI** at `/docs`
 * **Docker Compose**: `api` + `postgres`
 * **Jest + Supertest**: 20+ e2e tests
@@ -533,4 +533,5 @@ npm run migrate:dev
 npm run dev
 # Swagger: http://localhost:3000/docs
 ```
+
 
