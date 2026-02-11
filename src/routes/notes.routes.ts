@@ -120,7 +120,7 @@ export async function notesRoutes(app: FastifyInstance) {
     }
   )
 
-  // Create note :3
+  // Create note
   app.post(
     '/',
     {
@@ -141,7 +141,7 @@ export async function notesRoutes(app: FastifyInstance) {
     }
   );
 
-  // Get one note  by id :3
+  // Get one note  by id
   app.get(
     '/:id',
     {
@@ -159,7 +159,7 @@ export async function notesRoutes(app: FastifyInstance) {
     }
   );
 
-  // Update note by id -_-
+  // Update note by id
   app.patch(
     '/:id',
     {

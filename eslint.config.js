@@ -1,11 +1,11 @@
-// eslint.config.js
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
-import jest from "eslint-plugin-jest";
+import vitest from "eslint-plugin-vitest";
 
 export default [
     js.configs.recommended,
     ...tseslint.configs.recommended,
+
     {
         files: ["**/*.ts"],
         languageOptions: {
@@ -19,13 +19,19 @@ export default [
             "no-console": "off",
         },
     },
+
+    // TEST FILES
     {
         files: ["**/*.test.ts"],
-        plugins: { jest },
+        plugins: { vitest },
+        languageOptions: {
+            globals: vitest.environments.env.globals,
+        },
         rules: {
-            "jest/no-disabled-tests": "warn",
-            "jest/no-focused-tests": "error",
-            "jest/no-identical-title": "error",
+            "vitest/no-disabled-tests": "warn",
+            "vitest/no-focused-tests": "error",
+            "vitest/no-identical-title": "error",
+            "vitest/expect-expect": "warn"
         },
     },
 ];

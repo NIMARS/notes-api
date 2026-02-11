@@ -10,7 +10,7 @@ const start = async () => {
       app.log.info({ signal }, 'Shutting down...');
       await app.close();
       await closePrisma();
-      // Some time for logs to flush :3
+      // Some time for logs to flush
       setTimeout(() => process.exit(0), 100).unref();
     } catch (e) {
 

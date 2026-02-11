@@ -49,7 +49,7 @@ export async function buildApp() {
 
   await app.register(sensible);
 
-  await app.register(swagger, {   // OpenAPI
+  await app.register(swagger, {
 
     openapi: {
       info: { title: 'Notes API', version: '0.1.0' },
