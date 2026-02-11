@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from './setup';
+import {app} from './setup.ts';
 import { prisma } from '../src/db/prisma'
 import { Note } from '@prisma/client';
 

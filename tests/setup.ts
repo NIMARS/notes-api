@@ -1,8 +1,10 @@
 import { buildApp } from '../src/app';
 import { prisma } from '../src/db/prisma';
-import { beforeAll, afterAll, beforeEach } from '@jest/globals';
+import { beforeAll, afterAll, beforeEach } from 'vitest'
+
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.test' });
+process.env.NODE_ENV = 'test'
 
 export let app: Awaited<ReturnType<typeof buildApp>>;
 

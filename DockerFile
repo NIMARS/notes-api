@@ -7,7 +7,7 @@ RUN npm ci
 FROM deps AS build
 WORKDIR /app
 COPY tsconfig.json ./
-COPY .editorconfig .prettierrc .eslintrc.cjs jest.config.mjs ./
+COPY .editorconfig .prettierrc .eslintrc.cjs vitest.config.mjs ./
 COPY src ./src
 RUN npm run build
 
