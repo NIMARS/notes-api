@@ -4,7 +4,6 @@ import { prisma } from '../db/prisma.js';
 import { AppError } from '../errors/app-error.js';
 import { encodeCursor, decodeCursor } from '../utils/cursor.js';
 import { Prisma } from '@prisma/client'
-
 // Schemas
 const StringOrArray = z.union([z.string(), z.array(z.string())])
   .transform(v => Array.isArray(v) ? v : v.split(',').map(s => s.trim()).filter(Boolean))
@@ -102,7 +101,7 @@ export async function notesRoutes(app: FastifyInstance) {
         LIMIT ${limit}
       `)
 
-      const items = rows.map(r => ({
+      const items = rows.map((r: Row) => ({
         id: r.id,
         title: r.title,
         content: r.content,

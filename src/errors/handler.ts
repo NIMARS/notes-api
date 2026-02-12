@@ -1,7 +1,7 @@
 import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest, FastifySchemaValidationError } from 'fastify'
 import { ZodError } from 'zod'
-import { Prisma } from '@prisma/client'
 import { AppError } from './app-error.js'
+import { isPrismaKnownRequestError } from '../db/prisma.js'
 
 
 type ErrorBody = { error: string; message: string; reqId?: string; details?: unknown }
@@ -17,10 +17,6 @@ const isRecord = (v: unknown): v is Record<string, unknown> =>
 
 const isFastifyValidationError = (err: unknown): err is FastifyValidationError =>
   isRecord(err) && Array.isArray((err as Record<string, unknown>).validation)
-
-const isPrismaKnownRequestError = (err: unknown): err is Prisma.PrismaClientKnownRequestError =>
-  err instanceof Prisma.PrismaClientKnownRequestError
-
 
 export function registerErrorHandler(app: FastifyInstance) {
   app.setErrorHandler((err: FastifyError | Error, req: FastifyRequest, reply: FastifyReply) => {
@@ -42,7 +38,6 @@ export function registerErrorHandler(app: FastifyInstance) {
       return reply.code(400).send(body)
     }
 
-
     // 3) Prisma: not found
     // 4) Prisma: unique conflict
     if (isPrismaKnownRequestError(err)) {
@@ -53,7 +48,6 @@ export function registerErrorHandler(app: FastifyInstance) {
         return reply.code(409).send({ error: 'Conflict', message: 'Unique constraint failed', reqId: req.id })
       }
     }
-
 
     // 5) Me domain errors
     if (err instanceof AppError) {
