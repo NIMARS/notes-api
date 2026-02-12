@@ -68,3 +68,9 @@ jest-output/
 .swp
 .swo
 
+# AI
+AGENTS.md
+.codex/
+
+# Mine
+TODO.txt

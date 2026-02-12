@@ -1,9 +1,23 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
+import { Pool } from 'pg'
+import { PrismaPg } from '@prisma/adapter-pg'
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+})
+
+const adapter = new PrismaPg(pool)
 
 export const prisma = new PrismaClient({
-  log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
-});
+  adapter,
+
+  log:
+    process.env.NODE_ENV === 'development'
+      ? ['error', 'warn']
+      : ['error'],
+})
 
 export async function closePrisma() {
-  await prisma.$disconnect();
+  await prisma.$disconnect()
+  await pool.end()
 }

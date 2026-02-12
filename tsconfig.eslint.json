@@ -1,5 +1,5 @@
 {
     "extends": "./tsconfig.json",
-    "include": ["src", "tests", "prisma"]
+    "include": ["src", "tests", "prisma", "env.ts", "prisma.config.ts", "preload-env.ts", "vitest.config.ts"]
   }
   
