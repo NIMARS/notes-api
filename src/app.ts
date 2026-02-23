@@ -43,26 +43,16 @@ export async function buildApp() {
     },
   }).withTypeProvider<ZodTypeProvider>()
 
-
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
   await app.register(v1Routes, { prefix: '/v1' });
 
-  await app.register(async (legacy) => {
-    legacy.addHook('onSend', async (_req, reply, payload) => {
-      reply.header('Deprecation', 'true');
-      reply.header('Sunset', 'Wed, 01 Jul 2026 00:00:00 GMT');
-      reply.header('Link', '</v1/notes>; rel="successor-version"');
-      return payload;
-    });
-    await notesHttpModule(legacy, { prefix: '/notes', protectWrites: false });
-  });
-
+  
   await app.register(sensible);
-
+  
   await app.register(swagger, {
-
+    
     openapi: {
       info: { title: 'Notes API', version: '0.1.0' },
       servers: [{ url: 'http://localhost:' + env.PORT }],
@@ -74,15 +64,24 @@ export async function buildApp() {
     },
     transform: jsonSchemaTransform
   });
-
-
+  
+  
   if (env.SWAGGER_UI) {
     await app.register(swaggerUI, {
       routePrefix: '/docs',
       uiConfig: { docExpansion: 'list', deepLinking: true },
     });
   }
-
+  
+  await app.register(async (legacy) => {
+    legacy.addHook('onSend', async (_req, reply, payload) => {
+      reply.header('Deprecation', 'true');
+      reply.header('Sunset', 'Wed, 01 Jul 2026 00:00:00 GMT');
+      reply.header('Link', '</v1/notes>; rel="successor-version"');
+      return payload;
+    });
+    await notesHttpModule(legacy, { prefix: '/notes', protectWrites: false });
+  });
   await app.register(healthRoutes);
 
   registerErrorHandler(app);
