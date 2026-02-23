@@ -434,10 +434,5 @@ exports[`OpenAPI contract > GET /docs/json matches snapshot 1`] = `
       },
     },
   },
-  "servers": [
-    {
-      "url": "<normalized-url>",
-    },
-  ],
 }
 `;
