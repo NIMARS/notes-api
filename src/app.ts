@@ -6,8 +6,8 @@ import { env } from './bootstrap/env.js';
 import { buildLoggerOptions } from './logger/index.js';
 import { registerErrorHandler } from './errors/handler.js';
 import { healthRoutes } from './routes/health.js';
-import { notesRoutes } from './routes/notes.routes.js';
-
+import { notesHttpModule } from './modules/notes/http/index.js';
+import { v1Routes } from './routes/v1/index.js';
 
 import {
   ZodTypeProvider,
@@ -26,7 +26,7 @@ export async function buildApp() {
       querystringParser: (str: string) => {
         const params = new URLSearchParams(str)
         const out: Record<string, unknown> = Object.create(null)
-    
+
         for (const [rawKey, v] of params) {
           const key = rawKey.endsWith('[]') ? rawKey.slice(0, -2) : rawKey
           const current = out[key]
@@ -47,6 +47,18 @@ export async function buildApp() {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
+  await app.register(v1Routes, { prefix: '/v1' });
+
+  await app.register(async (legacy) => {
+    legacy.addHook('onSend', async (_req, reply, payload) => {
+      reply.header('Deprecation', 'true');
+      reply.header('Sunset', 'Wed, 01 Jul 2026 00:00:00 GMT');
+      reply.header('Link', '</v1/notes>; rel="successor-version"');
+      return payload;
+    });
+    await notesHttpModule(legacy, { prefix: '/notes', protectWrites: false });
+  });
+
   await app.register(sensible);
 
   await app.register(swagger, {
@@ -54,6 +66,11 @@ export async function buildApp() {
     openapi: {
       info: { title: 'Notes API', version: '0.1.0' },
       servers: [{ url: 'http://localhost:' + env.PORT }],
+      components: {
+        securitySchemes: {
+          bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+        },
+      },
     },
     transform: jsonSchemaTransform
   });
@@ -65,7 +82,7 @@ export async function buildApp() {
       uiConfig: { docExpansion: 'list', deepLinking: true },
     });
   }
-  await app.register(notesRoutes, { prefix: '/notes' });
+
   await app.register(healthRoutes);
 
   registerErrorHandler(app);

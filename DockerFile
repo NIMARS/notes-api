@@ -11,18 +11,6 @@ COPY .editorconfig .prettierrc .eslintrc.cjs vitest.config.ts ./
 COPY src ./src
 RUN npm run build
 
-FROM node:20-slim AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-RUN useradd -u 10001 nodeuser
-COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev
-COPY --from=build /app/dist ./dist
-EXPOSE 3000
-USER nodeuser
-CMD ["node", "dist/server.js"]
-
-
 FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV=production

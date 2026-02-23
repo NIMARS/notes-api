@@ -24,6 +24,7 @@ jobs:
     env:
       NODE_ENV: test
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/testdb?schema=public
+      AUTH_TOKENS_JSON: '{"reader-token":[],"writer-token":["notes:write"],"admin-token":["notes:write","notes:delete"]}'
 
     steps:
       - uses: actions/checkout@v4

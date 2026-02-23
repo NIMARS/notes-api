@@ -4,7 +4,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-package-lock.json
 .pnpm-store/
 
 # TypeScript / build
@@ -16,7 +15,7 @@ build/
 .env
 .env.*
 !.env.example
-
+!.env.test.example
 # Logs
 logs/
 *.log
@@ -74,3 +73,4 @@ AGENTS.md
 
 # Mine
 TODO.txt
+deleted

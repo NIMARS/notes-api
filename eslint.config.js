@@ -5,7 +5,15 @@ import vitest from "eslint-plugin-vitest";
 export default [
     js.configs.recommended,
     ...tseslint.configs.recommended,
-
+    {
+        ignores: [
+            "dist/**",
+            "node_modules/**",
+            "coverage/**",
+            "scripts/**",
+            "deleted/**"
+        ],
+    },
     {
         files: ["**/*.ts"],
         languageOptions: {
@@ -15,14 +23,14 @@ export default [
             },
         },
         rules: {
-            "no-unused-vars": "warn",
+            "no-unused-vars": "off", //"warn",
             "no-console": "off",
         },
     },
 
     // TEST FILES
     {
-        files: ["**/*.test.ts"],
+        files: ["src/**/*.ts", "tests/**/*.ts", "prisma/**/*.ts"],
         plugins: { vitest },
         languageOptions: {
             globals: vitest.environments.env.globals,
