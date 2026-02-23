@@ -1,0 +1,53 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Error contract snapshots > 400 snapshot 1`] = `
+{
+  "body": {
+    "details": undefined,
+    "error": "Bad Request",
+    "message": "body/title Invalid input: expected string, received undefined",
+    "reqId": undefined,
+  },
+  "status": 400,
+}
+`;
+
+exports[`Error contract snapshots > 401 snapshot 1`] = `
+{
+  "body": {
+    "details": undefined,
+    "error": "Unauthorized",
+    "message": "Missing or invalid bearer token",
+    "reqId": undefined,
+  },
+  "status": 401,
+}
+`;
+
+exports[`Error contract snapshots > 403 snapshot 1`] = `
+{
+  "body": {
+    "details": {
+      "required": [
+        "notes:write",
+      ],
+    },
+    "error": "Forbidden",
+    "message": "Forbidden",
+    "reqId": undefined,
+  },
+  "status": 403,
+}
+`;
+
+exports[`Error contract snapshots > 404 snapshot 1`] = `
+{
+  "body": {
+    "details": undefined,
+    "error": "NotFound",
+    "message": "Route not found",
+    "reqId": "<reqId>",
+  },
+  "status": 404,
+}
+`;

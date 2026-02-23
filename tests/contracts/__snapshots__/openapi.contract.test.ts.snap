@@ -1,0 +1,443 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OpenAPI contract > GET /docs/json matches snapshot 1`] = `
+{
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http",
+      },
+    },
+  },
+  "info": {
+    "title": "Notes API",
+    "version": "0.1.0",
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                    },
+                  },
+                  "required": [
+                    "status",
+                  ],
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+        "summary": "Healthcheck",
+      },
+    },
+    "/notes": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+            },
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "type": "string",
+            },
+          },
+          {
+            "in": "query",
+            "name": "tagsAny",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                },
+                {
+                  "items": {
+                    "type": "string",
+                  },
+                  "type": "array",
+                },
+              ],
+            },
+          },
+          {
+            "in": "query",
+            "name": "tagsAll",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                },
+                {
+                  "items": {
+                    "type": "string",
+                  },
+                  "type": "array",
+                },
+              ],
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "items": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "content": {
+                            "type": "string",
+                          },
+                          "createdAt": {
+                            "type": "string",
+                          },
+                          "id": {
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                            "type": "string",
+                          },
+                          "tags": {
+                            "default": [],
+                            "items": {
+                              "type": "string",
+                            },
+                            "type": "array",
+                          },
+                          "title": {
+                            "type": "string",
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                          },
+                        },
+                        "required": [
+                          "id",
+                          "title",
+                          "content",
+                          "tags",
+                          "createdAt",
+                          "updatedAt",
+                        ],
+                        "type": "object",
+                      },
+                      "type": "array",
+                    },
+                    "nextCursor": {
+                      "nullable": true,
+                      "type": "string",
+                    },
+                  },
+                  "required": [
+                    "items",
+                    "nextCursor",
+                  ],
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+        "summary": "List notes (cursor)",
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "content": {
+                    "default": "",
+                    "type": "string",
+                  },
+                  "tags": {
+                    "default": [],
+                    "items": {
+                      "type": "string",
+                    },
+                    "type": "array",
+                  },
+                  "title": {
+                    "minLength": 1,
+                    "type": "string",
+                  },
+                },
+                "required": [
+                  "title",
+                ],
+                "type": "object",
+              },
+            },
+          },
+          "required": true,
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string",
+                    },
+                    "createdAt": {
+                      "type": "string",
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                      "type": "string",
+                    },
+                    "tags": {
+                      "default": [],
+                      "items": {
+                        "type": "string",
+                      },
+                      "type": "array",
+                    },
+                    "title": {
+                      "type": "string",
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                    },
+                  },
+                  "required": [
+                    "id",
+                    "title",
+                    "content",
+                    "tags",
+                    "createdAt",
+                    "updatedAt",
+                  ],
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+        "summary": "Create note",
+      },
+    },
+    "/notes/{id}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "type": "string",
+            },
+          },
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "enum": [
+                    null,
+                  ],
+                  "nullable": true,
+                  "type": "string",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+        "summary": "Delete note",
+      },
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "type": "string",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string",
+                    },
+                    "createdAt": {
+                      "type": "string",
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                      "type": "string",
+                    },
+                    "tags": {
+                      "default": [],
+                      "items": {
+                        "type": "string",
+                      },
+                      "type": "array",
+                    },
+                    "title": {
+                      "type": "string",
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                    },
+                  },
+                  "required": [
+                    "id",
+                    "title",
+                    "content",
+                    "tags",
+                    "createdAt",
+                    "updatedAt",
+                  ],
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+        "summary": "Get note",
+      },
+      "patch": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "type": "string",
+            },
+          },
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "content": {
+                    "minLength": 1,
+                    "type": "string",
+                  },
+                  "tags": {
+                    "items": {
+                      "type": "string",
+                    },
+                    "type": "array",
+                  },
+                  "title": {
+                    "minLength": 1,
+                    "type": "string",
+                  },
+                },
+                "type": "object",
+              },
+            },
+          },
+          "required": true,
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string",
+                    },
+                    "createdAt": {
+                      "type": "string",
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                      "type": "string",
+                    },
+                    "tags": {
+                      "default": [],
+                      "items": {
+                        "type": "string",
+                      },
+                      "type": "array",
+                    },
+                    "title": {
+                      "type": "string",
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                    },
+                  },
+                  "required": [
+                    "id",
+                    "title",
+                    "content",
+                    "tags",
+                    "createdAt",
+                    "updatedAt",
+                  ],
+                  "type": "object",
+                },
+              },
+            },
+            "description": "Default Response",
+          },
+        },
+        "summary": "Update note",
+      },
+    },
+  },
+  "servers": [
+    {
+      "url": "<normalized-url>",
+    },
+  ],
+}
+`;
