@@ -3,6 +3,9 @@
 [![build](https://github.com/NIMARS/notes-api/actions/workflows/test.yml/badge.svg)](https://github.com/NIMARS/notes-api/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-ISC-blue)](LICENSE)
 
+Live demo: <https://notes-api-vkcj.onrender.com/>
+Swagger: <https://notes-api-vkcj.onrender.com/docs>
+
 ## 🌍 Языки/Languages
 
 [Русский](#русский) | [English](#english)
@@ -61,6 +64,8 @@ Backend-сервис заметок на **Fastify + TypeScript + PostgreSQL + P
     curl -s http://localhost:3000/health
     curl -s http://localhost:3000/v1/health
     ```
+
+4. Прод-демо (Render): `https://notes-api-vkcj.onrender.com/`
 
 ---
 
